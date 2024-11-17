@@ -10,6 +10,8 @@ import org.springframework.security.oauth2.client.web.reactive.function.client.S
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
@@ -17,13 +19,13 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {// @formatter:off
         http.authorizeHttpRequests(authorize -> authorize
-            .antMatchers("/").permitAll()
+            .requestMatchers("/").permitAll()
         	.anyRequest().authenticated())
-            .oauth2Login()
-            .and()
-            .logout()
-            .logoutUrl("/logout")
-            .logoutSuccessUrl("/");
+            .oauth2Login(withDefaults())
+            .logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+            );
         return http.build();
     }
 
