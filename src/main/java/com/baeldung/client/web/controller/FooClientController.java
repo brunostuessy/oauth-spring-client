@@ -21,7 +21,7 @@ import com.baeldung.client.web.model.FooModel;
 @Controller
 public class FooClientController {
 
-	@Value("${resourceserver.api.foo.url:http://localhost:8081/resource-server/api/foos/}")
+	@Value("${resourceserver.api.foo.url:http://localhost:8081/resource-server/api/foos}")
 	private String fooApiUrl;
 
 	@Autowired
