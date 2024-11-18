@@ -4,7 +4,7 @@ spring:
       client:
         registration:
           custom:
-            redirect-uri: http://localhost:8082/oauth-client-spring/login/oauth2/code/custom
+            redirect-uri: https://oauth-spring-client-bruno-stuessi-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/oauth-client-spring/login/oauth2/code/custom
         provider:
           custom:
             authorization-uri: https://oauth-authorization-server-bruno-stuessi-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/auth/realms/baeldung/protocol/openid-connect/auth
