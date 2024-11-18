@@ -1,4 +1,12 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /oauth-client-spring
+
 spring:
+  threads:
+    virtual:
+      enabled: true
   security:
     oauth2:
       client:
@@ -20,17 +28,12 @@ spring:
   thymeleaf:
     cache: false
 
-server: 
-  port: 8082
-  servlet: 
-    context-path: /oauth-client-spring
-    
-logging: 
-  level: 
-    org.springframework: INFO
-    org.springframework.security: TRACE
-
 resourceserver:
   api:
     foo:
       url: http://localhost:8081/resource-server/api/foos
+
+logging:
+  level:
+    org.springframework: INFO
+    org.springframework.security: TRACE

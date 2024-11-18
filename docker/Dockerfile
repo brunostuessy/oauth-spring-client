@@ -67,4 +67,4 @@ ENV JAVA_OPTS_APPEND=""
 ENV JAVA_APP_DIR="/deployments"
 ENV JAVA_APP_JAR="/deployments/spring-boot-app.jar"
 
-ENTRYPOINT ["/deployments/run-java.sh", "--server.port=8082"]
+ENTRYPOINT ["/deployments/run-java.sh", "--spring.profiles.active=os-dev", "--server.port=8082"]

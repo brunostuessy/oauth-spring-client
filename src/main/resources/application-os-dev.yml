@@ -1,0 +1,19 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          custom:
+            redirect-uri: http://localhost:8082/oauth-client-spring/login/oauth2/code/custom
+        provider:
+          custom:
+            authorization-uri: https://oauth-authorization-server-bruno-stuessi-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/auth/realms/baeldung/protocol/openid-connect/auth
+            token-uri: https://oauth-authorization-server-bruno-stuessi-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/auth/realms/baeldung/protocol/openid-connect/token
+            user-info-uri: https://oauth-authorization-server-bruno-stuessi-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/auth/realms/baeldung/protocol/openid-connect/userinfo
+            jwk-set-uri: https://oauth-authorization-server-bruno-stuessi-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/auth/realms/baeldung/protocol/openid-connect/certs
+            issuer-uri: https://oauth-authorization-server-bruno-stuessi-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/auth/realms/baeldung
+
+resourceserver:
+  api:
+    foo:
+      url: https://oauth-resource-server-bruno-stuessi-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/reosurce-server/resource-server/api/foos
