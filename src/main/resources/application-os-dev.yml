@@ -16,4 +16,4 @@ spring:
 resourceserver:
   api:
     foo:
-      url: https://oauth-resource-server-bruno-stuessi-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/reosurce-server/resource-server/api/foos
+      url: https://oauth-resource-server-bruno-stuessi-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/resource-server/api/foos
