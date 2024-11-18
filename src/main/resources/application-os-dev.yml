@@ -13,6 +13,13 @@ spring:
             jwk-set-uri: https://oauth-authorization-server-bruno-stuessi-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/auth/realms/baeldung/protocol/openid-connect/certs
             issuer-uri: https://oauth-authorization-server-bruno-stuessi-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/auth/realms/baeldung
 
+app:
+  security:
+    oauth2:
+      client:
+        logout:
+          redirect-uri: https://oauth-spring-client-bruno-stuessi-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/oauth-client-spring
+
 resourceserver:
   api:
     foo:

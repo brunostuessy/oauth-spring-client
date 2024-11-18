@@ -28,6 +28,13 @@ spring:
   thymeleaf:
     cache: false
 
+app:
+  security:
+    oauth2:
+      client:
+        logout:
+            redirect-uri: http://localhost:8082/oauth-client-spring
+
 resourceserver:
   api:
     foo:
