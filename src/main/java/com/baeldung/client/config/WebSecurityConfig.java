@@ -17,14 +17,16 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class WebSecurityConfig {
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {// @formatter:off
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
-            .requestMatchers("/").permitAll()
-        	.anyRequest().authenticated())
+                .requestMatchers("/").permitAll()
+        	    .anyRequest().authenticated()
+            )
             .oauth2Login(withDefaults())
             .logout(logout -> logout
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
+                .invalidateHttpSession(true)
             );
         return http.build();
     }
