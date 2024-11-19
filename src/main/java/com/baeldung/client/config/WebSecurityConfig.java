@@ -37,21 +37,43 @@ public class WebSecurityConfig {
             .logout(logout -> logout
                 .logoutUrl("/logout")
                 .logoutSuccessHandler(oidcLogoutSuccessHandler())
+                .clearAuthentication(true)
                 .invalidateHttpSession(true)
-                //.deleteCookies()
+                .deleteCookies("JSESSIONID")
             );
         return http.build();
     }
 
+    /*
+     * Redirects to client to logout from provider.
+     */
     private LogoutSuccessHandler oidcLogoutSuccessHandler() {
         OidcClientInitiatedLogoutSuccessHandler oidcLogoutSuccessHandler =
             new OidcClientInitiatedLogoutSuccessHandler(clientRegistrationRepository);
+
         // Sets the location that the End-User's User Agent will be redirected to
         // after the logout has been performed at the Provider
         oidcLogoutSuccessHandler.setPostLogoutRedirectUri(postLogoutRedirectUri);
 
         return oidcLogoutSuccessHandler;
     }
+
+    /*
+     * Performs in server logout from provider.
+     * See https://docs.spring.io/spring-security/reference/reactive/oauth2/login/logout.html
+     */
+    /*
+    private ServerLogoutSuccessHandler oidcLogoutSuccessHandler() {
+        OidcClientInitiatedServerLogoutSuccessHandler oidcLogoutSuccessHandler =
+            new OidcClientInitiatedServerLogoutSuccessHandler(clientRegistrationRepository);
+
+        // Sets the location that the End-User's User Agent will be redirected to
+        // after the logout has been performed at the Provider
+        oidcLogoutSuccessHandler.setPostLogoutRedirectUri(postLogoutRedirectUri);
+
+        return oidcLogoutSuccessHandler;
+    }
+    */
 
     @Bean
     WebClient webClient(ClientRegistrationRepository clientRegistrationRepository, OAuth2AuthorizedClientRepository authorizedClientRepository) {
