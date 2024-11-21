@@ -35,11 +35,11 @@ public class WebSecurityConfig {
             )
             .oauth2Login(withDefaults())
             .logout(logout -> logout
-                .logoutUrl("/logout")
+                //.logoutUrl("/logout")
                 .logoutSuccessHandler(oidcLogoutSuccessHandler())
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
+                .deleteCookies("JSESSIONID") // "id_token", "access_token"?
             );
         return http.build();
     }
@@ -48,7 +48,7 @@ public class WebSecurityConfig {
      * Redirects to client to logout from provider.
      */
     private LogoutSuccessHandler oidcLogoutSuccessHandler() {
-        OidcClientInitiatedLogoutSuccessHandler oidcLogoutSuccessHandler =
+        final OidcClientInitiatedLogoutSuccessHandler oidcLogoutSuccessHandler =
             new OidcClientInitiatedLogoutSuccessHandler(clientRegistrationRepository);
 
         // Sets the location that the End-User's User Agent will be redirected to
@@ -76,8 +76,8 @@ public class WebSecurityConfig {
     */
 
     @Bean
-    WebClient webClient(ClientRegistrationRepository clientRegistrationRepository, OAuth2AuthorizedClientRepository authorizedClientRepository) {
-        ServletOAuth2AuthorizedClientExchangeFilterFunction oauth2 = new ServletOAuth2AuthorizedClientExchangeFilterFunction(clientRegistrationRepository, authorizedClientRepository);
+    public WebClient webClient(ClientRegistrationRepository clientRegistrationRepository, OAuth2AuthorizedClientRepository authorizedClientRepository) {
+        final ServletOAuth2AuthorizedClientExchangeFilterFunction oauth2 = new ServletOAuth2AuthorizedClientExchangeFilterFunction(clientRegistrationRepository, authorizedClientRepository);
         oauth2.setDefaultOAuth2AuthorizedClient(true);
         return WebClient.builder()
             .apply(oauth2.oauth2Configuration())
