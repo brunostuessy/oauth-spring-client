@@ -26,6 +26,9 @@ public class WebSecurityConfig {
     @Value("${app.security.oauth2.client.logout.redirect-uri:http://localhost:8082/oauth-client-spring}")
     private String postLogoutRedirectUri;
 
+    @Value("${app.security.cors.client.origin:http://localhost:8082}")
+    private String corsOrigin;
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -78,7 +81,7 @@ public class WebSecurityConfig {
         final var oauth2 = new ServletOAuth2AuthorizedClientExchangeFilterFunction(clientRegistrationRepository, authorizedClientRepository);
         oauth2.setDefaultOAuth2AuthorizedClient(true);
         return WebClient.builder()
-            //.defaultHeader("Origin", "http://localhost:8082")
+            .defaultHeader("Origin", corsOrigin)
             .apply(oauth2.oauth2Configuration())
             .build();
     }

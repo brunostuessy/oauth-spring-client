@@ -34,6 +34,9 @@ app:
       client:
         logout:
             redirect-uri: http://localhost:8082/oauth-client-spring
+    cors:
+      client:
+        origin: http://localhost:8082
 
 resourceserver:
   api:
