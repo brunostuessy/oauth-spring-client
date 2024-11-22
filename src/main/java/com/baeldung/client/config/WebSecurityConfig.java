@@ -48,8 +48,7 @@ public class WebSecurityConfig {
      * Redirects to client to logout from provider.
      */
     private LogoutSuccessHandler oidcLogoutSuccessHandler() {
-        final OidcClientInitiatedLogoutSuccessHandler oidcLogoutSuccessHandler =
-            new OidcClientInitiatedLogoutSuccessHandler(clientRegistrationRepository);
+        final var oidcLogoutSuccessHandler = new OidcClientInitiatedLogoutSuccessHandler(clientRegistrationRepository);
 
         // Sets the location that the End-User's User Agent will be redirected to
         // after the logout has been performed at the Provider
@@ -64,8 +63,7 @@ public class WebSecurityConfig {
      */
     /*
     private ServerLogoutSuccessHandler oidcLogoutSuccessHandler() {
-        OidcClientInitiatedServerLogoutSuccessHandler oidcLogoutSuccessHandler =
-            new OidcClientInitiatedServerLogoutSuccessHandler(clientRegistrationRepository);
+        final var oidcLogoutSuccessHandler = new OidcClientInitiatedServerLogoutSuccessHandler(clientRegistrationRepository);
 
         // Sets the location that the End-User's User Agent will be redirected to
         // after the logout has been performed at the Provider
@@ -77,9 +75,10 @@ public class WebSecurityConfig {
 
     @Bean
     public WebClient webClient(ClientRegistrationRepository clientRegistrationRepository, OAuth2AuthorizedClientRepository authorizedClientRepository) {
-        final ServletOAuth2AuthorizedClientExchangeFilterFunction oauth2 = new ServletOAuth2AuthorizedClientExchangeFilterFunction(clientRegistrationRepository, authorizedClientRepository);
+        final var oauth2 = new ServletOAuth2AuthorizedClientExchangeFilterFunction(clientRegistrationRepository, authorizedClientRepository);
         oauth2.setDefaultOAuth2AuthorizedClient(true);
         return WebClient.builder()
+            //.defaultHeader("Origin", "http://localhost:8082")
             .apply(oauth2.oauth2Configuration())
             .build();
     }
