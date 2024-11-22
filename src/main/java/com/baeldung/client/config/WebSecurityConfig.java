@@ -38,7 +38,6 @@ public class WebSecurityConfig {
             )
             .oauth2Login(withDefaults())
             .logout(logout -> logout
-                //.logoutUrl("/logout")
                 .logoutSuccessHandler(oidcLogoutSuccessHandler())
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
