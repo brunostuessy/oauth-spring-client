@@ -1,7 +1,5 @@
 package com.baeldung.client.web.controller;
 
-import static org.springframework.security.oauth2.client.web.reactive.function.client.ServerOAuth2AuthorizedClientExchangeFilterFunction.oauth2AuthorizedClient;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.baeldung.client.web.model.FooModel;
+import com.baeldung.client.web.dto.FooDto;
+
+import static org.springframework.security.oauth2.client.web.reactive.function.client.ServerOAuth2AuthorizedClientExchangeFilterFunction.oauth2AuthorizedClient;
 
 @Controller
 public class FooClientController {
@@ -27,11 +27,12 @@ public class FooClientController {
 	@Autowired
 	private WebClient webClient;
 
+
 	@GetMapping("/foos")
 	public String getFoos(@RegisteredOAuth2AuthorizedClient("custom") OAuth2AuthorizedClient authorizedClient,
 			Model model) {
-		List<FooModel> foos = this.webClient.get().uri(fooApiUrl).attributes(oauth2AuthorizedClient(authorizedClient))
-				.retrieve().bodyToMono(new ParameterizedTypeReference<List<FooModel>>() {
+		final var foos = this.webClient.get().uri(fooApiUrl).attributes(oauth2AuthorizedClient(authorizedClient))
+				.retrieve().bodyToMono(new ParameterizedTypeReference<List<FooDto>>() {
 				}).block();
 		model.addAttribute("foos", foos);
 		return "foos";
@@ -39,12 +40,12 @@ public class FooClientController {
 
 	@GetMapping("/addfoo")
 	public String addNewFoo(Model model) {
-		model.addAttribute("foo", new FooModel(0L, ""));
+		model.addAttribute("foo", new FooDto(0L, ""));
 		return "addfoo";
 	}
 
 	@PostMapping("/foos")
-	public String saveFoo(FooModel foo, Model model) {
+	public String saveFoo(FooDto foo, Model model) {
 		try {
 			this.webClient.post().uri(fooApiUrl).bodyValue(foo).retrieve().bodyToMono(Void.class).block();
 			return "redirect:/foos";
