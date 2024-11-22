@@ -8,7 +8,7 @@ public class ClientContextIntegrationTest {
 
 	@Test
 	public void whenLoadApplication_thenSuccess() {
-
+		// pass
 	}
 
 }
