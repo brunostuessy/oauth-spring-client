@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
@@ -40,7 +41,7 @@ public class Oauth2ClientLiveTest {
         assertThat(fullAuthorizeUrl).contains("state");
 
         // extract state from redirect uri
-        String state = URLDecoder.decode(fullAuthorizeUrl.split("state=")[1].split("&")[0], "UTF-8");
+        String state = URLDecoder.decode(fullAuthorizeUrl.split("state=")[1].split("&")[0], StandardCharsets.UTF_8);
         String clientSessionId = response.getCookie("JSESSIONID");
 
         // obtain authentication url with custom codes

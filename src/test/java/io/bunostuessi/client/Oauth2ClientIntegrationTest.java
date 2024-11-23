@@ -43,7 +43,7 @@ public class Oauth2ClientIntegrationTest {
     private final static Pair<String, String> RESOURCE_SERVER_PROP = Pair.of("resourceserver.api.foo.url", "http://localhost:{PORT}/resource-server/api/foos");
 
     private final String CLIENT_SECURED_URL = "/foos";
-    private String REDIRECT_URI = "/login/oauth2/code/custom?state=%s&code=%s";
+    private final String REDIRECT_URI = "/login/oauth2/code/custom?state=%s&code=%s";
 
     @Value("${spring.security.oauth2.client.provider.custom.authorization-uri}")
     private String authServerAuthorizationURL;
@@ -133,7 +133,7 @@ public class Oauth2ClientIntegrationTest {
         // request to authorization endpoint contains state attribute
         String authorizationURL = result.getResponseHeaders()
             .getFirst(HttpHeaders.LOCATION);
-        String state = URLDecoder.decode(authorizationURL.split("state=")[1].split("&")[0], StandardCharsets.UTF_8.toString());
+        String state = URLDecoder.decode(authorizationURL.split("state=")[1].split("&")[0], StandardCharsets.UTF_8);
 
         // prepare Access Token mocked response
         String accessToken = "abc987";
@@ -174,7 +174,7 @@ public class Oauth2ClientIntegrationTest {
         String tokenEndpointPath = new URI(configuredTokenUri).getPath();
         assertThat(capturedTokenRequest.getPath()).isEqualTo(tokenEndpointPath);
         String requestBody = URLDecoder.decode(capturedTokenRequest.getBody()
-            .readUtf8(), StandardCharsets.UTF_8.name());
+            .readUtf8(), StandardCharsets.UTF_8);
         Map<String, String> mappedBody = Arrays.stream(requestBody.split("&"))
             .collect(Collectors.toMap(param -> param.split("=")[0], param -> param.split("=")[1]));
         assertThat(mappedBody).containsEntry("grant_type", "authorization_code");
