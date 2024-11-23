@@ -1,4 +1,4 @@
-package com.baeldung.client;
+package io.bunostuessi.client;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

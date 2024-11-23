@@ -1,4 +1,4 @@
-package com.baeldung.client.web.controller;
+package io.bunostuessi.client.web.controller;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.baeldung.client.web.dto.FooDto;
+import io.bunostuessi.client.web.dto.FooDto;
 
 import static org.springframework.security.oauth2.client.web.reactive.function.client.ServerOAuth2AuthorizedClientExchangeFilterFunction.oauth2AuthorizedClient;
 

@@ -1,4 +1,4 @@
-package com.baeldung.client;
+package io.bunostuessi.client;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

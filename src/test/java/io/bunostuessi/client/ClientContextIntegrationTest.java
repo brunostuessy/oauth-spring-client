@@ -1,4 +1,4 @@
-package com.baeldung.client;
+package io.bunostuessi.client;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
