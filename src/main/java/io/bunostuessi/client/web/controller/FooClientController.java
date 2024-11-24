@@ -36,9 +36,11 @@ public class FooClientController {
 	@GetMapping("/foos")
 	public String getFoos(@RegisteredOAuth2AuthorizedClient("custom") OAuth2AuthorizedClient authorizedClient,
 			Model model) {
-		final var foos = this.webClient.get().uri(fooApiUrl).attributes(oauth2AuthorizedClient(authorizedClient))
-				.retrieve().bodyToMono(new ParameterizedTypeReference<List<FooDto>>() {
-				}).block();
+		final var foos = this.webClient.get().uri(fooApiUrl)
+			.attributes(oauth2AuthorizedClient(authorizedClient))
+			.retrieve()
+			.bodyToMono(new ParameterizedTypeReference<List<FooDto>>() {})
+			.block();
 		model.addAttribute("foos", foos);
 		return "foos";
 	}
@@ -52,7 +54,10 @@ public class FooClientController {
 	@PostMapping("/foos")
 	public String saveFoo(FooDto foo, Model model) {
 		try {
-			this.webClient.post().uri(fooApiUrl).bodyValue(foo).retrieve().bodyToMono(Void.class).block();
+			this.webClient.post().uri(fooApiUrl)
+				.bodyValue(foo)
+				.retrieve().bodyToMono(Void.class)
+				.block();
 			return "redirect:/foos";
 		} catch (final HttpServerErrorException e) {
 			model.addAttribute("msg", e.getResponseBodyAsString());
