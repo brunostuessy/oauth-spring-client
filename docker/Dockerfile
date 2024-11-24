@@ -51,7 +51,7 @@ RUN mv target/$(cat .env-id)-$(cat .env-version).jar target/spring-boot-app.jar
 
 #### Run the Java 21 application using run-java.sh (copied from Openshift)
 
-FROM registry.access.redhat.com/ubi8/openjdk-21-runtime:1.20-2.1730773767
+FROM registry.access.redhat.com/ubi8/openjdk-21-runtime:1.21-1
 COPY --from=builder --chmod=755 /home/jboss/project/run-java.sh /deployments/run-java.sh
 COPY --from=builder /home/jboss/project/target/spring-boot-app.jar /deployments/spring-boot-app.jar
 
