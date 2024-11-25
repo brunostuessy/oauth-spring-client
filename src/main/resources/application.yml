@@ -2,6 +2,9 @@ server:
   port: 8082
   servlet:
     context-path: /oauth-client-spring
+  tomcat:
+    max-connections: 8192
+    accept-count: 100
 
 spring:
   threads:
