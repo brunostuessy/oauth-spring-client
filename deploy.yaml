@@ -21,7 +21,7 @@ spec:
               protocol: TCP
           resources:
             requests:
-              memory: "180Mi"
+              memory: "512Mi"
               cpu: "10m"
 ---
 kind: Service
