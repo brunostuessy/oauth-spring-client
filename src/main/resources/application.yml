@@ -4,7 +4,7 @@ server:
     context-path: /oauth-client-spring
   tomcat:
     max-connections: 8192
-    accept-count: 100
+    accept-count: 200 # default 100
 
 spring:
   threads:
